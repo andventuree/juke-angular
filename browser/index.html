@@ -9,9 +9,9 @@
     <!--
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js"></script>
     -->
-    <script src="/angular/angular.js"></script>
+
   </head>
-  <body>
+  <body ng-app='juke'>
     <div id="main" class="container-fluid">
       <div class="col-xs-2">
         <sidebar>
@@ -22,9 +22,16 @@
         </sidebar>
       </div>
 
-      <div class="col-xs-10"></div>
+      
+
+      <div class="col-xs-10">
+        <p><button ng-click="showIt = !showIt">Do you dare?</button></p>
+        <p><h4>Here's to you, Andrew!</h4><img ng-show="showIt" src="http://fillmurray.com/500/500"></p>
+      </div>
 
       <footer></footer>
     </div>
+    <script src="/angular/angular.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>
