@@ -11,18 +11,35 @@ angular.module("main", []).controller("main", [
       });
     };
 
+    const getData = res => res.data;
+
     $http
       .get("/api/albums")
-      .then(res => {
-        console.log(res.data);
-        return res.data;
-      })
+      .then(getData) //To keep DRY
       .then(albums => $http.get(`/api/albums/${albums[0].id}`))
-      .then(res => res.data)
+      .then(getData)
       .then(album => {
         album.imageUrl = `/api/albums/${album.id}/image`;
+        album.songs.forEach(song => {
+          song.audioUrl = `/api/songs/${song.id}/audio`;
+        });
         $scope.album = album;
+        console.log(album);
       })
       .catch($log.error);
+    //Everything $http.get is fired, angular knows to run another $digest cycle
+    //which means, ng will go back to view template (HTML) and will re-interpolate data
+    //fills in all the expressions
+
+    var audio = document.createElement("audio");
+
+    $scope.play = function(song) {
+      audio.src = song.audioUrl;
+      audio.load();
+      audio
+        .play()
+        .then(() => console.log(`${song.name} at API route ${song.audioUrl}`))
+        .catch(err => $log.error);
+    };
   }
 ]);
