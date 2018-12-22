@@ -40,10 +40,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat='song in album.songs'>
+              <tr ng-repeat='song in album.songs' ng-class='{ active: currentSong === song }'>
                 <td>
                   <button class="btn btn-default btn-xs" ng-click='play(song)'>
-                    <span class="glyphicon glyphicon-play"></span>
+                    <span ng-hide='song === currentSong' class="glyphicon glyphicon-play"></span>
                   </button>
                 </td>
                 <td>{{song.name}}</td>

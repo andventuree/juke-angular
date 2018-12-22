@@ -24,7 +24,6 @@ angular.module("main", []).controller("main", [
           song.audioUrl = `/api/songs/${song.id}/audio`;
         });
         $scope.album = album;
-        console.log(album);
       })
       .catch($log.error);
     //Everything $http.get is fired, angular knows to run another $digest cycle
@@ -34,6 +33,7 @@ angular.module("main", []).controller("main", [
     var audio = document.createElement("audio");
 
     $scope.play = function(song) {
+      $scope.currentSong = song;
       audio.src = song.audioUrl;
       audio.load();
       audio
