@@ -42,8 +42,13 @@
             <tbody>
               <tr ng-repeat='song in album.songs' ng-class='{ active: currentSong === song }'>
                 <td>
-                  <button class="btn btn-default btn-xs" ng-click='isPlaying && currentSong === song ? pause() : play(song)'>
-                    <span class="glyphicon" ng-class='{ "glyphicon-play": currentSong !== song || !isPlaying, "glyphicon-pause": currentSong === song && isPlaying }'></span>
+                <button class="btn btn-default btn-xs" ng-click='toggle(song)'>
+                  <span class="glyphicon" 
+                    ng-class='{ 
+                      "glyphicon-play" : shouldShowPlay(song),
+                      "glyphicon-pause" : shouldShowPause(song)
+                    }'>
+                  </span>
                   </button>
                 </td>
                 <td>{{song.name}}</td>

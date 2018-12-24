@@ -32,20 +32,34 @@ angular.module("main", []).controller("main", [
 
     var audio = document.createElement("audio");
 
-    $scope.play = function(song) {
+    $scope.toggle = function(song) {
+      if ($scope.playing && $scope.currentSong === song) pause();
+      else play(song);
+    };
+
+    //Refactor: Don't crowd $scope namespace if possible
+    function play(song) {
+      $scope.playing = true;
       $scope.currentSong = song;
-      $scope.isPlaying = true;
       audio.src = song.audioUrl;
       audio.load();
       audio
         .play()
         .then(() => console.log(`${song.name} at API route ${song.audioUrl}`))
         .catch(err => $log.error);
+    }
+
+    function pause() {
+      $scope.playing = false;
+      audio.pause();
+    }
+
+    $scope.shouldShowPlay = function(song) {
+      return song !== $scope.currentSong || !$scope.playing; //bool to toggle view
     };
 
-    $scope.pause = function() {
-      $scope.isPlaying = false;
-      audio.pause();
+    $scope.shouldShowPause = function(song) {
+      return song === $scope.currentSong && $scope.playing;
     };
   }
 ]);
