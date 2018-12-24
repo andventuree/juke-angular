@@ -94,5 +94,10 @@ angular.module("main", []).controller("main", [
       if ($scope.playing) play($scope.currentSong);
       else pause();
     }
+
+    audio.addEventListener("timeupdate", function() {
+      $scope.progress = (100 * audio.currentTime) / audio.duration;
+      $scope.$evalAsync();
+    });
   }
 ]);
