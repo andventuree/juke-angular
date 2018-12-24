@@ -38,6 +38,13 @@ angular.module("main", []).controller("main", [
       else play(song);
     };
 
+    audio.addEventListener("ended", function() {
+      //"ended" is emitted by default by audio element probably
+      skip(1);
+      $scope.$evalAsync(); //To let ng know it needs to run digest cycle, better than:
+      //$scope.$digest(); //which can have digest in progress issues
+    });
+
     //Refactor: Don't crowd $scope namespace if possible
     function play(song) {
       $scope.playing = true;
