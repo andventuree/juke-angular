@@ -64,13 +64,17 @@
       <footer ng-show='currentSong'>
         <div>
           <div class="pull-left">
-            <button class="btn btn-default">
+            <button class="btn btn-default" ng-click="previous()">
               <span class="glyphicon glyphicon-step-backward"></span>
             </button>
-            <button class="btn btn-default">
-              <span class="glyphicon glyphicon-pause"></span>
+            <button class="btn btn-default" ng-click='toggle(currentSong)'>
+              <span class="glyphicon"                     
+              ng-class='{ 
+                "glyphicon-play" : !playing,
+                "glyphicon-pause" : playing
+              }'></span>
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default" ng-click='next()'>
               <span class="glyphicon glyphicon-step-forward"></span>
             </button>
           </div>

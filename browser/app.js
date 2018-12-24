@@ -20,7 +20,8 @@ angular.module("main", []).controller("main", [
       .then(getData)
       .then(album => {
         album.imageUrl = `/api/albums/${album.id}/image`;
-        album.songs.forEach(song => {
+        album.songs.forEach((song, i) => {
+          song.albumIdx = i;
           song.audioUrl = `/api/songs/${song.id}/audio`;
         });
         $scope.album = album;
@@ -45,7 +46,7 @@ angular.module("main", []).controller("main", [
       audio.load();
       audio
         .play()
-        .then(() => console.log(`${song.name} at API route ${song.audioUrl}`))
+        // .then(() => console.log(`${song.name} at API route ${song.audioUrl}`))
         .catch(err => $log.error);
     }
 
@@ -61,5 +62,30 @@ angular.module("main", []).controller("main", [
     $scope.shouldShowPause = function(song) {
       return song === $scope.currentSong && $scope.playing;
     };
+
+    $scope.previous = function() {
+      // play($scope.album.songs[$scope.currentSong.albumIdx - 1]);
+      skip(-1);
+    };
+
+    $scope.next = function() {
+      // play($scope.album.songs[$scope.currentSong.albumIdx + 1]);
+      skip(1);
+    };
+
+    //Helper fn to fix js modulo
+    //To create inclusive range endpoints
+    function mod(num, m) {
+      return ((num % m) + m) % m;
+    }
+
+    function skip(interval) {
+      if (!$scope.currentSong) return;
+      let index = $scope.currentSong.albumIdx;
+      index = mod(index + interval, $scope.album.songs.length);
+      $scope.currentSong = $scope.album.songs[index];
+      if ($scope.playing) play($scope.currentSong);
+      else pause();
+    }
   }
 ]);
