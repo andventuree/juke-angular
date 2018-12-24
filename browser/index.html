@@ -42,8 +42,8 @@
             <tbody>
               <tr ng-repeat='song in album.songs' ng-class='{ active: currentSong === song }'>
                 <td>
-                  <button class="btn btn-default btn-xs" ng-click='play(song)'>
-                    <span ng-hide='song === currentSong' class="glyphicon glyphicon-play"></span>
+                  <button class="btn btn-default btn-xs" ng-click='isPlaying && currentSong === song ? pause() : play(song)'>
+                    <span class="glyphicon" ng-class='{ "glyphicon-play": currentSong !== song || !isPlaying, "glyphicon-pause": currentSong === song && isPlaying }'></span>
                   </button>
                 </td>
                 <td>{{song.name}}</td>
@@ -56,7 +56,26 @@
         </div>
       </div>
 
-      <footer></footer>
+      <footer ng-show='currentSong'>
+        <div>
+          <div class="pull-left">
+            <button class="btn btn-default">
+              <span class="glyphicon glyphicon-step-backward"></span>
+            </button>
+            <button class="btn btn-default">
+              <span class="glyphicon glyphicon-pause"></span>
+            </button>
+            <button class="btn btn-default">
+              <span class="glyphicon glyphicon-step-forward"></span>
+            </button>
+          </div>
+          <div class="bar">
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+        </div>
+      </footer>
 
     </div>
   </body>

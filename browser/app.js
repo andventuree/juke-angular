@@ -34,12 +34,18 @@ angular.module("main", []).controller("main", [
 
     $scope.play = function(song) {
       $scope.currentSong = song;
+      $scope.isPlaying = true;
       audio.src = song.audioUrl;
       audio.load();
       audio
         .play()
         .then(() => console.log(`${song.name} at API route ${song.audioUrl}`))
         .catch(err => $log.error);
+    };
+
+    $scope.pause = function() {
+      $scope.isPlaying = false;
+      audio.pause();
     };
   }
 ]);
