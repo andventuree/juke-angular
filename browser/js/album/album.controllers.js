@@ -1,21 +1,12 @@
 /* global juke */
 'use strict';
 
-juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log) {
+juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log, StatsFactory, AlbumFactory) {
 
   // load our initial data
-  $http.get('/api/albums/')
-  .then(function (res) { return res.data; })
-  .then(function (albums) {
-    return $http.get('/api/albums/' + albums[0].id); // temp: get one
-  })
-  .then(function (res) { return res.data; })
-  .then(function (album) {
-    album.imageUrl = '/api/albums/' + album.id + '/image';
-    album.songs.forEach(function (song, i) {
-      song.audioUrl = '/api/songs/' + song.id + '/audio';
-      song.albumIndex = i;
-    });
+  AlbumFactory.fetchAll()
+  .then(albums => { return AlbumFactory.fetchById(albums) })
+  .then(album => {
     $scope.album = album;
   })
   .catch($log.error); // $log service can be turned on and off; also, pre-bound
