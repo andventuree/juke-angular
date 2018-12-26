@@ -1,6 +1,16 @@
 /* global juke */
 'use strict';
 
+juke.controller('AlbumsCtrl', function($scope, $log, AlbumFactory){
+  AlbumFactory.fetchAll()
+  .then(albums => {
+    console.log(albums);
+    $scope.albums = albums;
+  })
+  .catch($log);
+})
+
+
 juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log, StatsFactory, AlbumFactory) {
 
   // load our initial data
