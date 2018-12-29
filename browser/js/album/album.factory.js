@@ -13,8 +13,8 @@ juke.factory('AlbumFactory', function($http){ //we don't do the $log here
       .then(getData)
       .then(albums => { return albums.map(convertAlbum) });
     },
-    fetchById: function(albums){
-      return $http.get(ENDPOINT + albums[0].id)
+    fetchById: function(albumId){
+      return $http.get(ENDPOINT + albumId)
       .then(getData)
       .then(convertAlbum)
       .then(album => {
