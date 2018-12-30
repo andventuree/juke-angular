@@ -1,6 +1,6 @@
 'use strict'
 
-juke.factory('ArtistFactory', function($http, $q, AlbumFactory){
+juke.factory('ArtistFactory', function($http, $q, AlbumFactory, SongFactory){
   const ENDPOINT = '/api/artists/';
   const getData = res => { return res.data; };
 
@@ -17,7 +17,7 @@ juke.factory('ArtistFactory', function($http, $q, AlbumFactory){
         $http.get(ENDPOINT + artistId + '/songs').then(getData)
       ])
       .then(([artist, albums, songs]) => { //destructuring arr
-        artist.songs = songs;
+        artist.songs = songs.map(SongFactory.convertSong);
         artist.albums = albums.map(AlbumFactory.convertAlbum);
         return artist; //load all this data onto controller
       });

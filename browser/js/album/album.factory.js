@@ -1,4 +1,4 @@
-juke.factory('AlbumFactory', function($http){ //we don't do the $log here
+juke.factory('AlbumFactory', function($http, SongFactory){ //we don't do the $log here
   const ENDPOINT = '/api/albums/';
   const getData = function (res) { return res.data; }
 
@@ -18,10 +18,7 @@ juke.factory('AlbumFactory', function($http){ //we don't do the $log here
       .then(getData)
       .then(convertAlbum)
       .then(album => {
-        album.songs.forEach(function (song, i) {
-          song.audioUrl = '/api/songs/' + song.id + '/audio';
-          song.albumIndex = i;
-        });
+        album.songs = album.songs.map(SongFactory.convertSong);
         return album;
       })
     },
