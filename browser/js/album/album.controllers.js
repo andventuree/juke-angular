@@ -4,17 +4,18 @@
 juke.controller('AlbumsCtrl', function($scope, $log, AlbumFactory, $rootScope){
   $scope.$on('viewSwap', function(event, view){
     $scope.showMe = view.name === 'allAlbums';
+    
+    AlbumFactory.fetchAll()
+    .then(albums => {
+      $scope.albums = albums;
+    })
+    .catch($log);
   });
 
   $scope.viewAlbum = function(album){
-    $rootScope.$broadcast('viewSwap', { name: 'oneAlbum', id: album.id});
+    $rootScope.$broadcast('viewSwap', { name: 'oneAlbum', id: album.id });
   }
 
-  AlbumFactory.fetchAll()
-  .then(albums => {
-    $scope.albums = albums;
-  })
-  .catch($log);
 })
 
 

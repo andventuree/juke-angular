@@ -6,7 +6,6 @@ juke.controller('SidebarCtrl', function($scope, $rootScope){
   }
 
   $scope.viewAllArtists = function(){
-    console.log('fired')
     $rootScope.$broadcast('viewSwap', {name: 'allArtists'});
   }
 });

@@ -2,7 +2,7 @@ juke.factory('AlbumFactory', function($http){ //we don't do the $log here
   const ENDPOINT = '/api/albums/';
   const getData = function (res) { return res.data; }
 
-  function convertAlbum(album){ //extracted out to be modular
+  const convertAlbum = (album) => { //extracted out to be modular
     album.imageUrl = '/api/albums/' + album.id + '/image';
     return album;
   }
@@ -24,6 +24,7 @@ juke.factory('AlbumFactory', function($http){ //we don't do the $log here
         });
         return album;
       })
-    }
+    },
+    convertAlbum: convertAlbum
   }
 })
