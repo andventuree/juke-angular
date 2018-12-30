@@ -12,6 +12,9 @@
     <script src="/js/player/player.controller.js" defer></script>
     <script src="/js/player/player.factory.js" defer></script>
     <script src='/js/sidebar/sidebar.controller.js' defer></script>
+    <script src='/js/artist/artist.controller.js' defer></script>
+    <script src='/js/artist/artist.factory.js' defer></script>
+
   </head>
   <body ng-app="juke">
     <div id="main" class="container-fluid">
@@ -23,6 +26,11 @@
             <h4 class="menu-item active">
               <a href="#" ng-click='showAllAlbums()'>ALBUMS</a>
             </h4>
+          </section>
+          <section>
+            <h5 class="playlist-item">
+              <a ng-click="viewAllArtists()" href="#">ARTISTS</a>
+            </h5>
           </section>
         </sidebar>
       </div>
@@ -77,6 +85,17 @@
             </div>
           </div>
         </div>
+        
+        <div ng-controller='ArtistCtrl' ng-show='showMe'>
+          <h3>Artists</h3>
+          <span>asdfasfsaf</span>
+          <div class="list-group">
+            <div class="list-group-item" ng-repeat="artist in artists">
+              <a href="#">{{ artist.name }}</a>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <footer>
