@@ -28,7 +28,6 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log, StatsFac
       $scope.album = album;
     })
     .catch($log.error);
-
   })
 
   // main toggle
