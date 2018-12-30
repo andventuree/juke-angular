@@ -2,7 +2,7 @@
 
 //Remember there's no $scope in a factory. You'll need to inject into controller.
 
-juke.factory('PlayerFactory', function($rootScope){ 
+juke.factory('PlayerFactory', function($rootScope, $log){ 
   //$scope is a controller thing but $rootScope is available to everything so its okay to use
   //State - Factory is good at keeping state
   let playing = false;
@@ -25,14 +25,16 @@ juke.factory('PlayerFactory', function($rootScope){
     Player.pause();
     audio.src = song.audioUrl;
     audio.load();
-    audio.play();
+    audio.play()
+      .catch(err => { console.log('Error with audio promise. Probably skipping too fast', err)} );
     playing = true;
   }
   Player.isPlaying = function(){
     return playing;
   }
   Player.resume = function(){
-    audio.play(); 
+    audio.play()
+      .catch(err => { console.log('Error with audio promise. Probably skipping too fast', err)} );
     playing = true;
   }
   Player.getCurrentSong = function(){
