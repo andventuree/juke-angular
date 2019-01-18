@@ -15,6 +15,7 @@
     <script src="/js/player/player.controller.js" defer></script>
     <script src="/js/player/player.factory.js" defer></script>
     <script src="/js/sidebar/sidebar.controller.js" defer></script>
+    <script src="/js/sidebar/sidebar.directive.js" defer></script>
     <script src="/js/artist/artist.controllers.js" defer></script>
     <script src="/js/artist/artist.factory.js" defer></script>
     <script src="/js/artist/artist.states.js" defer></script>
@@ -28,31 +29,7 @@
     <div id="main" class="container-fluid">
 
       <div class="col-xs-2">
-        <sidebar ng-controller="SidebarCtrl">
-          <img src="juke.svg" class="logo">
-          <section>
-            <h4 ui-sref-active="active" class="menu-item active">
-              <a ui-sref="albums">ALBUMS</a>
-            </h4>
-          </section>
-          <section>
-            <h4 ui-sref-active="active" class="menu-item">
-              <a ui-sref="artists">ARTISTS</a>
-            </h4>
-          </section>
-          <hr>
-          <section ng-controller="PlaylistsCtrl">
-            <h4 class="text-muted">PLAYLISTS</h4>
-            <p ui-sref-active="active" ng-repeat="playlist in playlists" class="menu-item">
-              <a ui-sref="playlist({playlistId: playlist.id })">
-                {{ playlist.name }}
-              </a>
-            </p>
-            <p>
-              <a ui-sref="newPlaylist" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-plus"></span> PLAYLIST</a>
-            </p>
-          </section>
-        </sidebar>
+        <sidebar></sidebar> <!-- this is the ng directive define by 'sidebar.directive.js' -->
       </div>
 
       <div class="col-xs-10">
